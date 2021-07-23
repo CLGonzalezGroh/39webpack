@@ -5,7 +5,6 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
 const TerserWebpackPlugin = require("terser-webpack-plugin")
 const Dotenv = require("dotenv-webpack")
-const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
 module.exports = {
   entry: "./src/index.js",
@@ -13,6 +12,8 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.[contenthash].js",
   },
+  mode: "development",
+  watch: true,
   resolve: {
     extensions: [".js"],
     alias: {
@@ -61,10 +62,5 @@ module.exports = {
       filename: "assets/[name].[contenthash].css",
     }),
     new Dotenv(),
-    new CleanWebpackPlugin(),
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [new CssMinimizerPlugin(), new TerserWebpackPlugin()],
-  },
 }
